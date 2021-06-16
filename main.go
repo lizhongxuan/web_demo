@@ -1,8 +1,8 @@
 package main
 
 import (
+	"./router"
 	"fmt"
-	"ginDemo/router"
 	"github.com/gin-gonic/gin"
 	"github.com/naoina/toml"
 	"io/ioutil"
@@ -17,16 +17,18 @@ type AppConfig struct {
 	Port    string
 }
 
+// 读取配置文件
 func initConfig(file string) error {
-
-	//
-	// 读取配置文件
-	//
 	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+			return
+		}
+	}()
 	buf, err := ioutil.ReadAll(f)
 	if err != nil {
 		return err
@@ -38,10 +40,10 @@ func initConfig(file string) error {
 }
 
 func main() {
-	err := initConfig("./conf/ginDemo.conf")
+	err := initConfig("./conf/webdemo.conf")
 	if err != nil {
 		fmt.Println("init config faild: %v", err.Error())
-		os.Exit(2)
+		return
 	}
 
 	// Set gin mode.
@@ -58,5 +60,5 @@ func main() {
 		// Middlwares.
 		middlewares...,
 	)
-	http.ListenAndServe(App.Port, g)
+	fmt.Println(http.ListenAndServe(App.Port, g).Error())
 }

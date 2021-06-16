@@ -1,9 +1,9 @@
 package router
 
 import (
-	"net/http"
-	"ginDemo/handler/test"
+	"../handler/home"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -17,9 +17,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	})
 
 	// The health check handlers
-	svcd := g.Group("/test")
+	homeGroup := g.Group("/home")
 	{
-		svcd.GET("/demo", test.FileHandler)
+		homeGroup.GET("/name", home.HomeName)
 	}
 
 	return g
