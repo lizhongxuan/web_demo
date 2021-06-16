@@ -1,7 +1,7 @@
 package router
 
 import (
-	"../handler/home"
+	"web_demo/handler/home"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

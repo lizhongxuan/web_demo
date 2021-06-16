@@ -1,4 +1,4 @@
-module example.com/m/v2
+module web_demo
 
 go 1.15
 

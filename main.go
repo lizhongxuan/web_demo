@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./router"
+	"web_demo/router"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/naoina/toml"
